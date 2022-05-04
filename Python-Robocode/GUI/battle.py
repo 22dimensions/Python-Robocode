@@ -6,6 +6,7 @@ Module implementing Battle.
 
 import os
 import pickle
+import sys
 
 from PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import pyqtSlot
@@ -27,12 +28,15 @@ class Battle(QDialog, Ui_Dialog):
         botnames = []
         self.listBots = {}
         botFiles = os.listdir(os.getcwd() + "/Robots")
+        botFiles += os.listdir(os.getcwd() + "/.datas/robots/")
+        sys.path.append(os.getcwd() + "/.datas/robots/")
         for botFile in botFiles:
             if botFile.endswith('.py'):
                 botName = botPath =  botFile[:botFile.rfind('.')]
                 if botName not in botnames:
                     botnames.append(botName)
                     try:
+                        print(botPath)
                         botModule =  __import__(botPath)
                         for name in dir(botModule):
                             if getattr(botModule,  name) in Robot.__subclasses__():
@@ -43,7 +47,6 @@ class Battle(QDialog, Ui_Dialog):
                     except Exception as e:
                         print("Problem with bot file '{}': {}".format(botFile, str(e)))
 
-                        
         for key in self.listBots.keys():
             self.listWidget.addItem(key)
     

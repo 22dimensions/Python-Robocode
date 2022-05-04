@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>792</width>
-    <height>464</height>
+    <width>1106</width>
+    <height>686</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
           </attribute>
           <column>
            <property name="text">
-            <string>Name</string>
+            <string>名字</string>
            </property>
           </column>
           <column>
@@ -56,7 +56,7 @@
           </column>
           <column>
            <property name="text">
-            <string>Points</string>
+            <string>分数</string>
            </property>
           </column>
          </widget>
@@ -78,7 +78,7 @@
             <item>
              <widget class="QPushButton" name="pushButton">
               <property name="text">
-               <string>Start Last Battle</string>
+               <string>开始上一场战斗</string>
               </property>
              </widget>
             </item>
@@ -87,7 +87,7 @@
               <item>
                <widget class="QLabel" name="label_2">
                 <property name="text">
-                 <string>Battle's Number</string>
+                 <string>战斗回合数</string>
                 </property>
                </widget>
               </item>
@@ -104,6 +104,32 @@
              </layout>
             </item>
            </layout>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="stopButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>暂停</string>
+            </property>
+           </widget>
           </item>
           <item>
            <spacer name="horizontalSpacer">
@@ -129,7 +155,7 @@
                <string notr="true"/>
               </property>
               <property name="text">
-               <string>Game Speed</string>
+               <string>游戏速度</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -210,30 +236,29 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>792</width>
-     <height>23</height>
+     <width>1106</width>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuBattle">
     <property name="title">
-     <string>Battle</string>
+     <string>战斗</string>
     </property>
     <addaction name="actionNew"/>
    </widget>
    <widget class="QMenu" name="menuRobot">
     <property name="title">
-     <string>Robot</string>
+     <string>机器人</string>
     </property>
     <addaction name="actionNew_2"/>
     <addaction name="actionOpen"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>Help</string>
+     <string>帮助</string>
     </property>
     <addaction name="separator"/>
     <addaction name="actionClass_Reference"/>
-    <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuBattle"/>
    <addaction name="menuRobot"/>
@@ -242,27 +267,27 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
    <property name="text">
-    <string>New</string>
+    <string>新建</string>
    </property>
   </action>
   <action name="actionNew_2">
    <property name="text">
-    <string>New</string>
+    <string>新建</string>
    </property>
   </action>
   <action name="actionOpen">
    <property name="text">
-    <string>Open</string>
+    <string>打开</string>
    </property>
   </action>
   <action name="actionClass_Reference">
    <property name="text">
-    <string>Class Reference</string>
+    <string>类参考</string>
    </property>
   </action>
   <action name="actionAbout">
    <property name="text">
-    <string>About</string>
+    <string>关于</string>
    </property>
   </action>
  </widget>

@@ -11,10 +11,13 @@ from PyQt5.QtCore import pyqtSlot, QTimer
 
 from graph import Graph
 from Ui_window import Ui_MainWindow
+from editor import codeEditor
 from battle import Battle
 from robot import Robot
+from fileList import fileList
 from RobotInfo import RobotInfo
 from statistic import statistic
+
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     """
@@ -30,14 +33,14 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.timer = QTimer()
         self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tableWidget.hide()
-        
-    
+        self.init_stop_button()
+
     @pyqtSlot()
     def on_pushButton_clicked(self):
         """
         Start the last battle
         """
-        
+
         if os.path.exists(os.getcwd() + "/.datas/lastArena"):
             with open(os.getcwd() + "/.datas/lastArena",  'rb') as file:
                 unpickler = pickle.Unpickler(file)
@@ -47,7 +50,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             print("No last arena found.")
 
         self.setUpBattle(dico["width"] , dico["height"], dico["botList"] )
-        
+
+    @pyqtSlot()
+    def on_stopButton_clicked(self):
+        """
+        stop or continue the battle
+        """
+        if self.stopButton.text() == "继续":
+            self.stopButton.setText("暂停")
+            self.timer.start((self.horizontalSlider.value() ** 2) / 100.0)
+            self.resizeEvent()
+        else:
+            self.stopButton.setText("继续")
+            self.timer.stop()
+
     def setUpBattle(self, width, height, botList):
         self.tableWidget.clearContents()
         self.tableWidget.hide()
@@ -59,9 +75,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         for bot in botList:
             self.statisticDico[self.repres(bot)] = statistic()
         self.startBattle()
-        
+
     def startBattle(self):
-        
+
         try:
             self.timer.timeout.disconnect(self.scene.advance)
             del self.timer
@@ -69,7 +85,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             del self.sceneMenu
         except:
             pass
-            
+
         self.timer = QTimer()
         self.countBattle += 1
         self.sceneMenu = QGraphicsScene()
@@ -80,14 +96,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.timer.timeout.connect(self.scene.advance)
         self.timer.start((self.horizontalSlider.value()**2)/100.0)
         self.resizeEvent()
-    
+        self.stopButton.setEnabled(True)
+
     @pyqtSlot(int)
     def on_horizontalSlider_valueChanged(self, value):
         """
         Slot documentation goes here.
         """
         self.timer.setInterval((value**2)/100.0)
-    
+
     @pyqtSlot()
     def on_actionNew_triggered(self):
         """
@@ -95,22 +112,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         """
         self.battleMenu = Battle(self)
         self.battleMenu.show()
-    
+
     @pyqtSlot()
     def on_actionNew_2_triggered(self):
         """
         Slot documentation goes here.
         """
-        # TODO: not implemented yet
-        print("Not Implemented Yet")
-    
+        self.editor = codeEditor(self)
+        self.editor.show()
+
     @pyqtSlot()
     def on_actionOpen_triggered(self):
         """
         Slot documentation goes here.
         """
-        # TODO: not implemented yet
-        print("Not Implemented Yet")
+        self.file_list = fileList(self)
+        self.file_list.show()
 
     def resizeEvent(self, evt=None):
         try:
@@ -132,7 +149,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         l = (len(self.scene.aliveBots) )
         self.sceneMenu.setSceneRect(0, 0, 170, l*80)
         p.setPos(0, (l -1)*80)
-        
+
     def chooseAction(self):
         if self.countBattle >= self.spinBox.value():
             "Menu Statistic"
@@ -146,15 +163,20 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.tableWidget.setItem(i, 2,  QTableWidgetItem(str(value.second)))
                 self.tableWidget.setItem(i, 3,  QTableWidgetItem(str(value.third)))
                 self.tableWidget.setItem(i, 4,  QTableWidgetItem(str(value.points)))
-               
+
                 i += 1
-                
-                
+
+
             self.countBattle = 0
             self.timer.stop()
+            self.init_stop_button()
         else:
             self.startBattle()
-            
+
     def repres(self, bot):
         repres = repr(bot).split(".")
         return repres[1].replace("'>", "")
+
+    def init_stop_button(self):
+        self.stopButton.setText("暂停")
+        self.stopButton.setEnabled(False)

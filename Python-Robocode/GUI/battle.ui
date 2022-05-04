@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Battle Selection</string>
+   <string>战斗选择</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -50,7 +50,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Available Bots:</string>
+            <string>可选机器人</string>
            </property>
           </widget>
          </item>
@@ -131,7 +131,7 @@
             </font>
            </property>
            <property name="text">
-            <string>Selected Bots</string>
+            <string>已选机器人</string>
            </property>
           </widget>
          </item>
@@ -184,7 +184,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Arena Size</string>
+          <string>战场大小</string>
          </property>
         </widget>
        </item>
@@ -223,7 +223,7 @@
          <item>
           <widget class="QLabel" name="label_5">
            <property name="text">
-            <string>Width</string>
+            <string>宽度</string>
            </property>
           </widget>
          </item>
@@ -278,7 +278,7 @@
        <item>
         <widget class="QLabel" name="label_6">
          <property name="text">
-          <string>Height</string>
+          <string>高度</string>
          </property>
         </widget>
        </item>
@@ -335,7 +335,7 @@
         </font>
        </property>
        <property name="text">
-        <string>-- Start --</string>
+        <string>开始</string>
        </property>
       </widget>
      </item>
